@@ -1,0 +1,154 @@
+﻿@model _2001216310_NguyenThanhVi.Models.Product
+@{
+    ViewBag.Title = "Thông tin";
+}
+@section Side{
+    <div class="col-md-5">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>LOẠI NƯỚC NGỌT</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            @foreach (_2001216310_NguyenThanhVi.Models.Brand item in ViewBag.brand)
+            {
+                <a class="list-group-item" href="/Customer/Product/MainOfProduct?sc=false&brandsearch=@item.Id">@item.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-md-5" style="margin-top: 40px;">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>CHỌN THEO GIÁ</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="/Customer/Product/MainOfProduct?sc=false&price=L100">100.000<u>đ</u> trở xuống</a>
+            <a class="list-group-item" href="/Customer/Product/MainOfProduct?sc=false&price=100200">100.000<u>đ</u> - 200.000<u>đ</u></a>
+            <a class="list-group-item" href="/Customer/Product/MainOfProduct?sc=false&price=200500">200.000<u>đ</u> - 500.000<u>đ</u></a>
+            <a class="list-group-item" href="/Customer/Product/MainOfProduct?sc=false&price=H500">Trên 500.000<u>đ</u></a>
+        </div>
+    </div>
+}
+<div style="margin-right: 400px; float: left">
+    <h2>@Model.Name</h2>
+    <div>
+        <div style="float:left">
+            <img src="/Img/@Model.Img" style="width:400px;height:500px" />
+        </div>
+        <div style="float:right; margin-left:50px;">
+            <p style="font-size:50px">Mã SP:<span style="color:red;">@Model.Id</span></p>
+            <p style="font-size:30px">Giá: <span style="color:red;">@Model.Price <u>đ</u></span></p>
+            <div style="border: solid 0.01mm lightgray;width:385px;">
+                <div style="color:red;">
+                    <ul>
+                        @if (!string.IsNullOrEmpty(Model.Description))
+                        {
+                            string s = Model.Description;
+                            int dem = 0;
+                            int demc = 0;
+                            char c = s[dem];
+                            int tong = 0;
+                            if (s != string.Empty)
+                            {
+                                foreach (char m in s)
+                                {
+                                    if (m == '/')
+                                    {
+                                        tong++;
+                                    }
+                                }
+                                while (dem < tong)
+                                {
+                                    <li>
+                                        @{
+                                            for (int i = demc; i < s.Length; i++)
+                                            {
+                                                if (s[i] == '/')
+                                                {
+                                                    demc++;
+                                                    break;
+                                                }
+                                                Write(s[i]);
+                                                demc++;
+                                            }
+                                        }
+                                    </li>
+                                    dem++;
+                                }
+                            }
+                        }
+                        else
+                        {
+                            <li>Chưa có mô tả</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <br />
+            <div>
+                @if (Model.Storages.Amount != 0)
+                {
+                    <p>Số lượng: <input type="number" value="@Model.Storages.Amount" disabled style="border:none;color:red;"/></p>
+                    <a href="/Customer/Cart/Add/@Model.Id" class="btn btn-primary btn-success">Mua</a>
+                }
+                else
+                {
+                    <div>
+                        SẢN PHẨM HẾT HÀNG
+                    </div>
+                }
+                @*@using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel"><b>ĐĂNG NHẬP</b></h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body" style="padding-top:20px;">
+                            <div class="input-group flex-nowrap" style="margin-top:10px;">
+                                <label style="margin-right:30px;width:132px;">Tên đăng nhập</label>
+                                <input type="text" class="form-control" name="UserName" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                            <div class="input-group flex-nowrap" style="margin-top:10px;">
+                                <label style="margin-right: 30px; width: 132px;">Mật khẩu</label>
+                                <input type="password" class="form-control" name="Password" aria-label="Username" aria-describedby="addon-wrapping">
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Thoát</button>
+                            <button type="button" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+                @*<div style="float:left">
+                <table>
+                    <tr>
+                        <td rowspan="2" style="border:none"><input type="text" id="KQ" value="1" disabled style="border:none;width:20px;height:20px;background-color:white;" /></td>
+                        <td><input type="button" value="+" id="Tang" style="width:30px;height:30px;" onclick="clickTang()" /></td>
+                        <td rowspan="2"><a href="#" class="btn btn-primary" style="width:100px;">Mua ngay</a></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="button" value="-" id="Giam" style="width:30px;height:30px;" onclick="clickGiam()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>*@
+            </div>
+            <br />
+        </div>
+    </div>
+</div>
+    <script>
+
+        function clickTang() {
+            document.getElementById("KQ").value++;
+        }
+        function clickGiam() {
+            if (document.getElementById("KQ").value > 1)
+                document.getElementById("KQ").value--;
+        }
+    </script>

@@ -1,0 +1,65 @@
+﻿@model List<_2001216310_NguyenThanhVi.Models.Cart>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/LayoutPageNoneSection.cshtml";
+}
+
+
+<h2>@ViewBag.Title</h2>
+
+@if (Model.Count != 0)
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>#ID</th>
+            <th>Name</th>
+            <th>Quantiy</th>
+            <th>Tol. Price</th>
+            <th>Action</th>
+        </tr>
+        @{int i = 1; double totPrice = 0;}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @i
+                </td>
+                @{
+                    _2001216310_NguyenThanhVi.Models.MyDB db = new _2001216310_NguyenThanhVi.Models.MyDB();
+                    _2001216310_NguyenThanhVi.Models.Product pro = db.Products.Where(e => e.Id == item.ProId).FirstOrDefault();
+                }
+                <td>@pro.Name</td>
+                <td>
+                    @using (Html.BeginForm("UpdateQuantity", "Cart", FormMethod.Get))
+                    {
+                        <input type="number" value="@item.Quantity" name="quan" min="1" style="width: 70px;" />
+                        <input type="hidden" name="proid" value="@item.ProId" />
+                        <input type="submit" value="Update" class="btn btn-primary" />
+                    }
+                </td>
+                <td>
+                    @{
+                        double Price = item.Quantity * pro.Price;
+                        i++;
+                        totPrice += Price;
+                    }
+                    @Price.ToString("N0") VNĐ
+                </td>
+                <td>
+                    <a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover" aria-current="page" href="/Cart/DeletePro?id=@item.CartId"><i class="fa-solid fa-trash fa-2xs"></i></a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <td colspan="3" class="text-center fw-bold">Tổng tiền</td>
+            <td>@totPrice.ToString("N0") VNĐ</td>
+        </tr>
+    </table>
+}
+else
+{
+    <h2>Không có sản phẩm nào trong giỏ hàng !!</h2>
+}
+
+<a class="btn btn-primary" aria-current="page" href="/Product/MainOfProduct">Quay lại chọn sản phẩm</a>
+

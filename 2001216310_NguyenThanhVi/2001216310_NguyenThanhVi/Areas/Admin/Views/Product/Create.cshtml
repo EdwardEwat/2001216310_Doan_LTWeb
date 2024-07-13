@@ -1,0 +1,81 @@
+﻿@model _2001216310_NguyenThanhVi.Models.Product
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayoutNoneSection.cshtml";
+}
+
+<div style="width:1400px; margin-left:100px; margin-top:40px;">
+    <h2>Thêm sản phẩm</h2>
+    @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Name, "Tên sản phẩm")
+                    @Html.TextBoxFor(e => e.Name, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Name, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.LabelFor(e => e.Price, "Giá sản phẩm")
+                    @Html.TextBoxFor(e => e.Price, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Price, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Storages.Amount, "Số lượng sản phẩm")
+                    @Html.TextBoxFor(e => e.Storages.Amount, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Storages.Amount, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Description, "Mô tả sản phẩm")
+                    @Html.TextBoxFor(e => e.Description, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Description, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.LabelFor(e => e.Type, "Loại sản phẩm")
+                    @Html.DropDownListFor(e => e.Type, new List<SelectListItem>()
+                    {
+                        new SelectListItem(){Text="Lon",Value="Lon"},
+                        new SelectListItem(){Text="Thùng",Value="Thùng"},
+                        new SelectListItem(){Text="Lốc",Value="Lốc"}
+                    }, "Chọn loại sản phẩm", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Type, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Status, "Trạng thái sản phẩm")
+                    @Html.DropDownListFor(e => e.Status, new List<SelectListItem>()
+                    {
+                        new SelectListItem(){Text="Còn hàng",Value="Còn hàng"},
+                        new SelectListItem(){Text="Hết hàng",Value="Hết hàng"}
+                    }, "Chọn trạng thái sản phẩm", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Status, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.LabelFor(e => e.BrandId, "Hãng sản phẩm")
+                    @Html.DropDownListFor(e => e.BrandId, new SelectList(ViewBag.brand, "Id", "Name"), "Chọn hãng sản phẩm", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.BrandId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Img, "Ảnh sản phẩm")
+                    <input type="file" name="imageFile" id="imageFile" class="form-control" />
+                    @Html.ValidationMessageFor(e => e.Img, "", new { @class = "text-danger" })
+                </td>
+                <td>
+                    @Html.LabelFor(e => e.Storages.StoreId, "Tồn kho tại cửa hàng")
+                    @Html.DropDownListFor(e => e.Storages.StoreId, new SelectList(ViewBag.store, "Id", "Name"), "Chọn cửa hàng", new { @class = "form-control" })
+                    @Html.ValidationMessageFor(e => e.Storages.StoreId, "", new { @class = "text-danger" })
+                </td>
+            </tr>
+        </table>
+        <a href="/Admin/Product/MainOfProduct" class="btn btn-danger">Hủy</a>
+        <button type="submit" class="btn btn-primary">Xác nhận</button>
+    }
+
+</div>

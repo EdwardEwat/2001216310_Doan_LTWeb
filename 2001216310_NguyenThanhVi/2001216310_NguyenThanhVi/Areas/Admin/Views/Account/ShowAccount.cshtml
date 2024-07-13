@@ -1,0 +1,135 @@
+﻿@model List<_2001216310_NguyenThanhVi.Models.Account>
+@{
+    ViewBag.Title = "Hiển thị toàn bộ tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayoutNoneSection.cshtml";
+}
+
+<h2 style="color:red;">Danh sách tài khoản</h2>
+<select class="form-select" id="TypeSearch" aria-label="Default select example" style="width: 200px;float:left">
+    <option selected value="0">Lựa chọn loại tìm kiếm</option>
+    <option value="1">Theo tên đăng nhập</option>
+    <option value="2">Theo tên hiển thị</option>
+    <option value="3">Theo email</option>
+    <option value="4">Theo SĐT</option>
+    <option value="5">Theo địa chỉ</option>
+</select>
+<script>
+    function ClickSubmit1() {
+        var TypeS = document.getElementById("TypeSearch");
+        var Search = document.getElementById("SearchB");
+        var TextS = "";
+        if (TypeS.value == 1)
+            TextS = "UserName";
+        else if (Hang.value == 2)
+            TextS = "Name";
+        else if (Hang.value == 3)
+            TextS = "Email";
+        else if (Hang.value == 4)
+            TextS = "Phone";
+        else if (Hang.value == 5)
+            TextS = "Address";
+        var linkH = document.getElementById("Click2")
+        if (TextS != null) {
+            linkH.href = "/Admin/Account/ShowAccount?search=" + Search.innerText + "&type=" + TextS;
+        }
+    }
+</script>
+<form class="d-flex" role="search" style="margin-left:0px">
+    <input class="form-control me-2" id="SearchB" type="search" aria-label="Search" style="width:400px">
+    <a class="btn btn-outline-success" id="Click2" onclick="ClickSubmit1()" href="#"><i class="fa-solid fa-magnifying-glass fa-2xs"></i></a>
+</form>
+<br />
+<a class="btn btn-success" aria-current="page" href="/Admin/Account/Create">Tạo tài khoản</a>
+<br />
+@if (Model.Count > 0)
+{
+    <table class="table table-bordered">
+        <tr>
+            <th>STT</th>
+            <th>Tên đăng nhập</th>
+            <th>Tên hiển thị</th>
+            <th>Hành động</th>
+        </tr>
+        @{
+            int i = 1;
+            foreach (_2001216310_NguyenThanhVi.Models.Account item in Model)
+            {
+                if (item.IsAdmin)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td><a class="link-offset-2 link-underline link-underline-opacity-0" href="/Admin/Account/Detail/@item.Id" style="color:red;">@item.UserName</a></td>
+                        <td>@item.Name</td>
+                        <td>
+                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="/Admin/Account/Fix/@item.Id">Sửa</a> |
+                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="/Admin/Account/Delete/@item.Id">Xóa</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+            foreach (_2001216310_NguyenThanhVi.Models.Account item in Model)
+            {
+                if (item.IsGuest)
+                {
+                    <tr>
+                        <td>@i</td>
+                        <td><a class="link-offset-2 link-underline link-underline-opacity-0" href="/Admin/Account/Detail/@item.Id">@item.UserName</a></td>
+                        <td>@item.Name</td>
+                        <td>
+                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="/Admin/Account/Fix/@item.Id">Sửa</a> |
+                            <a class="link-offset-2 link-underline link-underline-opacity-0" href="/Admin/Account/Delete/@item.Id">Xóa</a>
+                        </td>
+                    </tr>
+                    i++;
+                }
+            }
+        }
+        <tr>
+            <td colspan="4">
+                @{
+                    int Next = ViewBag.Page + 1;
+                    if (Next > ViewBag.NoPage)
+                    {
+                        Next = ViewBag.Page;
+                    }
+                    int Prev = ViewBag.Page - 1;
+                    if (Prev <= 0)
+                    {
+                        Prev = 1;
+                    }
+
+                }
+                <ul class="pagination justify-content-center">
+                    <li class="page-item">
+                        <a class="page-link" href="/Admin/Account/ShowAccount?column=Id&page=@Prev"><</a>
+                    </li>
+                    @for (i = 0; i < @ViewBag.NoPage; i++)
+                    {
+                        if (i + 1 == ViewBag.Page)
+                        {
+                            <li class="page-item active">
+                                <a class="page-link" href="/Admin/Account/ShowAccount?column=Id&page=@(i+1)">@(i + 1)</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="page-item">
+                                <a class="page-link" href="/Admin/Account/ShowAccount?column=Id&page=@(i+1)">@(i + 1)</a>
+                            </li>
+                        }
+                    }
+                    <li class="page-item">
+                        <a class="page-link" href="/Admin/Account/ShowAccount?column=Id&page=@Next">></a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    </table>
+}
+else
+{
+    <h3>Không có tài khoản</h3>
+}
+
+<a class="btn btn-primary" aria-current="page" href="/Admin/Product/MainOfProduct">Quay lại</a>

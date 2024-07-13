@@ -1,0 +1,219 @@
+﻿@model List<_2001216310_NguyenThanhVi.Models.Product>
+@{
+    ViewBag.Title = "Trang chủ sản phẩm";
+    Layout = "~/Areas/Customer/Views/Shared/LayoutPageNoneSection.cshtml";
+}
+
+<nav class="navbar navbar-expand-lg" style="width:80%; margin:20px;margin-left: 170px;border: solid 0.001mm black;border-radius:10px;">
+    <div class="container-fluid">
+        <span class="navbar-brand" style="margin-bottom:2px;">Đơn tùy chọn</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Lựa chọn theo hãng
+                    </a>
+                    <ul class="dropdown-menu">
+                        @foreach (_2001216310_NguyenThanhVi.Models.Brand item in ViewBag.brand)
+                        {
+                            <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?brandsearch=@item.Id">@item.Name</a></li>
+                        }
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Lựa chọn theo giá
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?price=L100">Dưới 100.000<u>đ</u></a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?price=100200">100.000<u>đ</u> - 200.000<u>đ</u></a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?price=200500">200.000<u>đ</u> - 400.000<u>đ</u></a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?price=H500">Trên 500.000<u>đ</u></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Mặt hàng còn hay không
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?status=Have">Còn hàng</a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?status=None">Hết hàng</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown" style="float:right">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Sắp xếp
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?column=Name">Theo tên</a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?column=Price">Tăng dần theo giá</a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?column=Price2">Giảm dần theo giá</a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?column=Type">Theo loại sản phẩm</a></li>
+                        <li><a class="dropdown-item" href="/Customer/Product/MainOfProduct?column=Status">Theo tình trạng sản phẩm</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="d-flex" role="resetProduct" style="float:right;">
+                <a class="btn btn-outline-success" href="/Customer/Product/MainOfProduct?column=Id"><i class="fa-solid fa-rotate-right fa-2xs"></i></a>
+            </form>
+        </div>
+    </div>
+</nav>
+<nav class="navbar navbar-expand-lg" style="width:80%; margin:20px;margin-left: 170px;border: solid 0.001mm black;border-radius:10px;">
+    <div class="container-fluid">
+        <span class="navbar-brand" style="margin-bottom:2px;">Đa tùy chọn</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item" style="margin-right:30px;">
+                    <select class="form-select" id="OwnerOfProduct" aria-label="Default select example">
+                        <option selected value="0">Lựa chọn theo hãng</option>
+                        <option value="1">Coca Cola</option>
+                        <option value="2">Pepsi</option>
+                        <option value="3">Warrior</option>
+                        <option value="4">Sting</option>
+                        <option value="5">Fanta</option>
+                        <option value="6">Sprite</option>
+                        <option value="7">Twister</option>
+                        <option value="8">Mountain Dew</option>
+                        <option value="9">Red Bull</option>
+                    </select>
+                </li>
+                <li class="nav-item" style="margin-right:30px;">
+                    <select class="form-select" id="PriceOfProduct" aria-label="Default select example">
+                        <option selected value="0">Lựa chọn theo giá</option>
+                        <option value="1">Dưới 100.000<u>đ</u></option>
+                        <option value="2">100.000<u>đ</u> - 200.000<u>đ</u></option>
+                        <option value="3">200.000<u>đ</u> - 400.000<u>đ</u></option>
+                        <option value="4">Trên 500.000<u>đ</u></option>
+                    </select>
+                </li>
+                <li class="nav-item" style="margin-right:30px;">
+                    <select class="form-select" id="StatusOfProduct" aria-label="Default select example">
+                        <option selected value="0">Lựa chọn theo tình trạng</option>
+                        <option value="1">Còn hàng</option>
+                        <option value="2">Hết hàng</option>
+                    </select>
+                </li>
+            </ul>
+            <script>
+                function ClickSubmit() {
+                    var Hang = document.getElementById("OwnerOfProduct");
+                    var Gia = document.getElementById("PriceOfProduct");
+                    var TinhTrang = document.getElementById("StatusOfProduct");
+                    var HText = "", GText = "", TText = "";
+                    if (Hang.value == 1)
+                        HText = "Coca+Cola";
+                    else if (Hang.value == 2)
+                        HText = "Pepsi";
+                    else if (Hang.value == 3)
+                        HText = "Warrior";
+                    else if (Hang.value == 4)
+                        HText = "Sting";
+                    else if (Hang.value == 5)
+                        HText = "Fanta";
+                    else if (Hang.value == 6)
+                        HText = "Sprite";
+                    else if (Hang.value == 7)
+                        HText = "Twister";
+                    else if (Hang.value == 8)
+                        HText = "Mountain+Dew"
+                    else if (Hang.value == 9)
+                        HText = "Red+Bull";
+
+                    if (Gia.value == 1)
+                        GText = "L100";
+                    else if (Gia.value == 2)
+                        GText = "100200";
+                    else if (Gia.value == 3)
+                        GText = "200500";
+                    else if (Gia.value == 4)
+                        GText = "H500";
+                    if (TinhTrang.value == 1)
+                        TText = "Have";
+                    else if (TinhTrang.value == 2)
+                        TText = "None";
+                    var linkH = document.getElementById("Click1");
+                    if (Text != null) {
+                        linkH.href = "/Customer/Product/MainOfProduct?search=" + HText + "&price=" + GText + "&status=" + TText;
+                    }
+                }
+            </script>
+            <form class="d-flex" role="submitProduct" style="float:right;">
+                <a class="btn btn-outline-success" id="Click1" onclick="ClickSubmit()" href="#"><i class="fa-solid fa-check fa-2xs"></i></a>
+            </form>
+        </div>
+    </div>
+</nav>
+
+@{
+    if (ViewBag.Error != 0)
+    {
+        <div class="row" style="width:80%;margin-bottom:20px;margin-left:150px;">
+            <div style="display:grid;grid-template-columns: 400px 400px 400px 400px;gap: 10px 0px;">
+                @foreach (var a in Model)
+                {
+                    <div class="card" style="width: 290px;height:350px;">
+                        <img src="~/Img/@a.Img" class="card-img-top" alt="..." style="width:180px;height:150px;margin-left:50px;">
+                        <div class="card-body">
+                            <h5 class="card-title">@a.Name</h5>
+                            <p class="card-text">Giá:<span style="color:red;"> @a.Price<u>đ</u></span></p>
+                        </div>
+                        <div>
+                            <a href="/Customer/Product/Detail/@a.Id" class="btn btn-info" style="width:100px;margin:20px; margin-left:25px; float:left;display:inline;">Thông tin</a>
+                            <a href="/Customer/Cart/Add/@a.Id" class="btn btn-primary btn-success" style="width: 100px; margin: 20px; margin-left: 10px;">Mua</a>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+        <td colspan="5">
+            @{
+                int Next = ViewBag.Page + 1;
+                if (Next > ViewBag.NoPage)
+                {
+                    Next = ViewBag.Page;
+                }
+                int Prev = ViewBag.Page - 1;
+                if (Prev <= 0)
+                {
+                    Prev = 1;
+                }
+
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/Customer/Product/MainOfProduct?column=Id&page=@Prev"><</a>
+                </li>
+                @for (int i = 0; i < @ViewBag.NoPage; i++)
+                {
+                    if (i + 1 == ViewBag.Page)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" href="/Customer/Product/MainOfProduct?column=Id&page=@(i+1)">@(i + 1)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/Customer/Product/MainOfProduct?column=Id&page=@(i+1)">@(i + 1)</a>
+                        </li>
+                    }
+                }
+                <li class="page-item">
+                    <a class="page-link" href="/Customer/Product/MainOfProduct?column=Id&page=@Next">></a>
+                </li>
+            </ul>
+        </td>
+    }
+    else
+    {
+        <h2>Không còn hàng !!</h2>
+    }
+}

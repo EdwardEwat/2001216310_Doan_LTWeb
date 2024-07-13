@@ -1,0 +1,80 @@
+﻿@model _2001216310_NguyenThanhVi.ViewModel.RegisterVM
+@{
+    ViewBag.Title = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayoutNoneSection.cshtml";
+}
+
+
+<div style="width:1400px; margin-left:100px; margin-top:40px;">
+    <h2>Thêm sản phẩm</h2>
+    @using (Html.BeginForm("Create", "Account", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <table class="table" style="width:30%;">
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.UserName, "Tên đăng nhập")
+                    @Html.TextBoxFor(e => e.UserName, new { @class = "form-control", style = "width:70%" })
+                    @Html.ValidationMessageFor(e => e.UserName)
+                    @if (ViewBag.error != null)
+                    {
+                        <span class="badge badge-danger">@ViewBag.error</span>
+                    }
+
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Password, "Mật khẩu")
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "width:70%" } })
+                    @Html.ValidationMessageFor(e => e.Password)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.ConfirmPassword, "Xác nhận mật khẩu")
+                    @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", style = "width:70%" } })
+                    @Html.ValidationMessageFor(e => e.ConfirmPassword)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Name, "Tên hiển thị")
+                    @Html.TextBoxFor(e => e.Name, new { @class = "form-control", style = "width:70%" })
+                    @Html.ValidationMessageFor(e => e.Name)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Email, "Email")
+                    @Html.TextBoxFor(e => e.Email, new { @class = "form-control", style = "width:70%" })
+                    @Html.ValidationMessageFor(e => e.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Phone, "Số điện thoại")
+                    @Html.EditorFor(e => e.Phone, new { htmlAttributes = new { @class = "form-control", style = "width:70%" } })
+                    @Html.ValidationMessageFor(e => e.Phone)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Address, "Địa chỉ")
+                    @Html.TextBoxFor(e => e.Address, new { @class = "form-control", style = "width:70%" })
+                    @Html.ValidationMessageFor(e => e.Address)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.ValidationSummary()
+                    <a href="/Admin/Account/ShowAccount" class="btn btn-secondary">Thoát</a>
+                    <input type="submit" name="submit" class="btn btn-primary" value="Đăng ký" />
+                </td>
+            </tr>
+        </table>
+    }
+
+</div>
+
+

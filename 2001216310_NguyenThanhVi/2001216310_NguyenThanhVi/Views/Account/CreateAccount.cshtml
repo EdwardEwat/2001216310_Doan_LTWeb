@@ -1,0 +1,99 @@
+﻿@model _2001216310_NguyenThanhVi.ViewModel.RegisterVM
+@{
+    ViewBag.Title = "CreateAccount";
+    Layout = "~/Views/Shared/LayoutPage.cshtml";
+}
+@section Side{
+    <div class="col-md-5">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>LOẠI NƯỚC NGỌT</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            @foreach (_2001216310_NguyenThanhVi.Models.Brand item in ViewBag.brand)
+            {
+                <a class="list-group-item" href="/Product/MainOfProduct?sc=false&brandsearch=@item.Id">@item.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-md-5" style="margin-top: 40px;">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>CHỌN THEO GIÁ</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=L100">100.000<u>đ</u> trở xuống</a>
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=100200">100.000<u>đ</u> - 200.000<u>đ</u></a>
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=200500">200.000<u>đ</u> - 500.000<u>đ</u></a>
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=H500">Trên 500.000<u>đ</u></a>
+        </div>
+    </div>
+}
+<h2 style="color:red;">ĐĂNG KÝ TÀI KHOẢN</h2>
+@using (Html.BeginForm("CreateAccount", "Account", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+<table class="table" style="width:30%;">
+    <tr>
+        <td>
+            @Html.LabelFor(e => e.UserName, "Tên đăng nhập")
+            @Html.TextBoxFor(e => e.UserName, new { @class = "form-control", style = "width:70%" })
+            @Html.ValidationMessageFor(e => e.UserName)
+            @if (ViewBag.error != null)
+            {
+                <span class="badge badge-danger">@ViewBag.error</span>
+            }
+
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(e => e.Password, "Mật khẩu")
+            @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", style = "width:70%" } })
+            @Html.ValidationMessageFor(e => e.Password)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(e => e.ConfirmPassword, "Xác nhận mật khẩu")
+            @Html.EditorFor(model => model.ConfirmPassword, new { htmlAttributes = new { @class = "form-control", style = "width:70%" } })
+            @Html.ValidationMessageFor(e => e.ConfirmPassword)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(e => e.Name, "Tên hiển thị")
+            @Html.TextBoxFor(e => e.Name, new { @class = "form-control", style = "width:70%" })
+            @Html.ValidationMessageFor(e => e.Name)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(e => e.Email, "Email")
+            @Html.TextBoxFor(e => e.Email, new { @class = "form-control", style = "width:70%" })
+            @Html.ValidationMessageFor(e => e.Email)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(e => e.Phone, "Số điện thoại")
+            @Html.EditorFor(e => e.Phone, new { htmlAttributes = new { @class = "form-control", style = "width:70%" } })
+            @Html.ValidationMessageFor(e => e.Phone)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.LabelFor(e => e.Address, "Địa chỉ")
+            @Html.TextBoxFor(e => e.Address, new { @class = "form-control", style = "width:70%" })
+            @Html.ValidationMessageFor(e => e.Address)
+        </td>
+    </tr>
+    <tr>
+        <td>
+            @Html.ValidationSummary()
+            <a href="/Product/MainOfProduct?sc=false" class="btn btn-secondary">Thoát</a>
+            <input type="submit" name="submit" class="btn btn-primary" value="Đăng ký" />
+        </td>
+    </tr>
+</table>
+}

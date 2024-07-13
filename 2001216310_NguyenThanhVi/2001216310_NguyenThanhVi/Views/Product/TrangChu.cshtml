@@ -1,0 +1,98 @@
+﻿@model List<_2001216310_NguyenThanhVi.Models.Product>
+@{
+    ViewBag.Title = "TrangChủ";
+    Layout = "~/Views/Shared/LayoutPage.cshtml";
+}
+@section Side{
+    <div class="col-md-5">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>LOẠI NƯỚC NGỌT</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            @foreach (_2001216310_NguyenThanhVi.Models.Brand item in ViewBag.brand)
+            {
+                <a class="list-group-item" href="/Product/MainOfProduct?sc=false&brandsearch=@item.Id">@item.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-md-5" style="margin-top: 40px;">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>CHỌN THEO GIÁ</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=L100">100.000<u>đ</u> trở xuống</a>
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=100200">100.000<u>đ</u> - 200.000<u>đ</u></a>
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=200500">200.000<u>đ</u> - 500.000<u>đ</u></a>
+            <a class="list-group-item" href="/Product/MainOfProduct?sc=false&price=H500">Trên 500.000<u>đ</u></a>
+        </div>
+    </div>
+}
+@{
+    if (ViewBag.Error != 0)
+    {
+        <div class="row" style="width:60%;margin-bottom:20px;margin-left:0px;">
+            <div style="display:grid;grid-template-columns: 350px 350px 350px 350px;gap: 10px 0px;">
+                @foreach (var a in Model)
+                {
+                    <div class="card" style="width: 290px;height:350px;">
+                        <img src="~/Img/@a.Img" class="card-img-top" alt="..." style="width:180px;height:150px;margin-left:50px;">
+                        <div class="card-body">
+                            <h5 class="card-title">@a.Name</h5>
+                            <p class="card-text">Giá:<span style="color:red;"> @a.Price<u>đ</u></span></p>
+                        </div>
+                        <div>
+                            <a href="/Product/Detail/@a.Id" class="btn btn-info" style="width:100px;margin:20px; margin-left:25px; float:left;display:inline;">Thông tin</a>
+                            <a href="/Product/Detail/@a.Id" class="btn btn-primary btn-success" style="width: 100px; margin: 20px; margin-left: 10px;">Mua</a>
+                        </div>
+
+                    </div>
+                }
+            </div>
+        </div>
+        <td colspan="5">
+            @{
+                int Next = ViewBag.Page + 1;
+                if (Next > ViewBag.NoPage)
+                {
+                    Next = ViewBag.Page;
+                }
+                int Prev = ViewBag.Page - 1;
+                if (Prev <= 0)
+                {
+                    Prev = 1;
+                }
+
+            }
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="/Product/MainOfProduct?sc=false&column=Id&page=@Prev"><</a>
+                </li>
+                @for (int i = 0; i < @ViewBag.NoPage; i++)
+                {
+                    if (i + 1 == ViewBag.Page)
+                    {
+                        <li class="page-item active">
+                            <a class="page-link" href="/Product/MainOfProduct?sc=false&column=Id&page=@(i+1)">@(i + 1)</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="/Product/MainOfProduct?sc=false&column=Id&page=@(i+1)">@(i + 1)</a>
+                        </li>
+                    }
+                }
+                <li class="page-item">
+                    <a class="page-link" href="/Product/MainOfProduct?sc=false&column=Id&page=@Next">></a>
+                </li>
+            </ul>
+        </td>
+    }
+    else
+    {
+        <h2>Không còn hàng !!</h2>
+    }
+}
+

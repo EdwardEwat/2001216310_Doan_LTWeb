@@ -1,0 +1,75 @@
+﻿@model _2001216310_NguyenThanhVi.Models.Account
+@{
+    ViewBag.Title = "Fix";
+    Layout = "~/Areas/Admin/Views/Shared/AdminLayoutNoneSection.cshtml";
+}
+
+<div style="width:1400px; margin-left:100px; margin-top:40px;">
+    <h2>Sửa tài khoản</h2>
+    @using (Html.BeginForm("Fix", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        <table class="table">
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.UserName, "Tên đăng nhập")
+                    @Html.TextBoxFor(e => e.UserName, new { @class = "form-control", @value = Model.UserName })
+                    @Html.ValidationMessageFor(e => e.UserName)
+                </td>
+                <td>
+                    @Html.LabelFor(e => e.Name, "Tên hiển thị")
+                    @Html.TextBoxFor(e => e.Name, new { @class = "form-control", @value = Model.Name })
+                    @Html.ValidationMessageFor(e => e.Name)
+                </td>
+            </tr>
+            <tr>
+                @*<td>
+            @Html.LabelFor(e => e.Password, "Mật khẩu")
+            @Html.TextBoxFor(e => e.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(e => e.Password)
+        </td>*@
+                <td>
+                    @Html.Label("Trạng thái sản phẩm")
+                    <br />
+                    <select class="form-control input-validation-error" name="Role">
+                        @if (Model.IsGuest)
+                        {
+
+
+                            <option value="1" selected>Khách</option>
+
+
+                            <option value="2">Admin</option>
+                        }
+                        else
+                        {
+                            <option value="1">Khách</option>
+                            <option value="2" selected>Admin</option>
+                        }
+                    </select>
+                </td>
+                <td>
+                    @Html.LabelFor(e => e.Email, "Email")
+                    @Html.TextBoxFor(e => e.Email, new { @class = "form-control", @value = Model.Email })
+                    @Html.ValidationMessageFor(e => e.Email)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    @Html.LabelFor(e => e.Phone, "Số điện thoại")
+                    @Html.TextBoxFor(e => e.Phone, new { @class = "form-control", @value = Model.Phone  })
+                    @Html.ValidationMessageFor(e => e.Phone)
+                </td>
+                <td>
+                    @Html.LabelFor(e => e.Address, "Địa chỉ")
+                    @Html.TextBoxFor(e => e.Address, new { @class = "form-control", @value = Model.Address })
+                    @Html.ValidationMessageFor(e => e.Address)
+                </td>
+            </tr>
+        </table>
+        <a href="/Admin/Account/ShowAccount" class="btn btn-danger">Hủy</a>
+        <button type="submit" class="btn btn-primary">Xác nhận</button>
+    }
+
+</div>
+
+

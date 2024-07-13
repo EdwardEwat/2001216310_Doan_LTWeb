@@ -1,0 +1,33 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@section Side{
+    <div class="col-md-5">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>LOẠI NƯỚC NGỌT</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            @foreach (_2001216310_NguyenThanhVi.Models.Brand item in ViewBag.brand)
+            {
+                <a class="list-group-item" href="/Admin//Product/MainOfProduct?sc=false&brandsearch=@item.Id">@item.Name</a>
+            }
+        </div>
+    </div>
+    <div class="col-md-5" style="margin-top: 40px;">
+        <span style="padding-top: 100px; padding-bottom: 100px; padding-left: 10px;"><b>CHỌN THEO GIÁ</b></span>
+        <div class="text-success" style="width:60%">
+            <hr>
+        </div>
+        <div class="list-group list-group-flush">
+            <a class="list-group-item" href="/Admin/Product/MainOfProduct?sc=false&price=L100">100.000<u>đ</u> trở xuống</a>
+            <a class="list-group-item" href="/Admin//Product/MainOfProduct?sc=false&price=100200">100.000<u>đ</u> - 200.000<u>đ</u></a>
+            <a class="list-group-item" href="/Admin//Product/MainOfProduct?sc=false&price=200500">200.000<u>đ</u> - 500.000<u>đ</u></a>
+            <a class="list-group-item" href="/Admin//Product/MainOfProduct?sc=false&price=H500">Trên 500.000<u>đ</u></a>
+        </div>
+    </div>
+}
+<h2>MSSV: 2001216310<br />Tên: Nguyễn Thanh Vi</h2>
+<h2 style="color:red;">Admin Area</h2>
+
